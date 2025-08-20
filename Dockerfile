@@ -1,5 +1,5 @@
 # first stage
-FROM openjdk:23-jdk-oracle AS builder
+FROM openjdk:17-jdk-oracle AS builder
 
 WORKDIR /app
 
@@ -10,8 +10,11 @@ COPY src src
 COPY pom.xml .
 RUN ./mvnw package -DskipTests=true
 
+# Build the application
+#RUN mvn package -Dmaven.test.skip=true
+
 # second stage
-FROM openjdk:23-jdk-oracle
+FROM openjdk:17-jdk-oracle
 
 WORKDIR /runningapp
 
